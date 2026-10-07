@@ -1,0 +1,2555 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="FINOVA — A smarter way to understand, organise and improve your financial life.">
+<meta name="theme-color" content="#050b14">
+<title>FINOVA — Smarter Money. Better Decisions.</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#050b14;
+  --bg2:#08111e;
+  --panel:rgba(11,23,38,.72);
+  --panel2:rgba(15,30,49,.84);
+  --line:rgba(255,255,255,.09);
+  --line2:rgba(53,221,255,.22);
+  --text:#f5f9ff;
+  --muted:#8d9bad;
+  --cyan:#35ddff;
+  --blue:#647cff;
+  --purple:#a56cff;
+  --green:#50e6a2;
+  --orange:#ffad68;
+  --danger:#ff6680;
+  --shadow:0 30px 100px rgba(0,0,0,.42);
+  --radius:26px;
+  --max:1180px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:
+    radial-gradient(circle at 15% 10%,rgba(53,221,255,.08),transparent 28%),
+    radial-gradient(circle at 85% 20%,rgba(165,108,255,.08),transparent 28%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+  overflow-x:hidden;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  background-image:
+    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:55px 55px;
+  mask-image:linear-gradient(to bottom,black,transparent 85%);
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button,
+input,
+textarea{
+  font:inherit;
+}
+
+button{
+  border:0;
+}
+
+.container{
+  width:min(var(--max),calc(100% - 40px));
+  margin:auto;
+}
+
+section{
+  padding:105px 0;
+  position:relative;
+}
+
+.gradient-text{
+  background:linear-gradient(100deg,var(--cyan),var(--blue),var(--purple));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border:1px solid var(--line2);
+  border-radius:999px;
+  background:rgba(53,221,255,.055);
+  color:#bcefff;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+
+.eyebrow:before{
+  content:"";
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--cyan);
+  box-shadow:0 0 14px var(--cyan);
+}
+
+.section-head{
+  max-width:720px;
+  margin-bottom:48px;
+}
+
+.section-head h2{
+  font-family:"Space Grotesk",sans-serif;
+  font-size:clamp(34px,5vw,60px);
+  line-height:1.02;
+  margin:16px 0;
+  letter-spacing:-.045em;
+}
+
+.section-head p{
+  color:var(--muted);
+  line-height:1.8;
+  font-size:16px;
+}
+
+/* LOADER */
+
+.loader{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  background:#03070d;
+  display:grid;
+  place-items:center;
+  transition:.7s ease;
+}
+
+.loader.hide{
+  opacity:0;
+  pointer-events:none;
+}
+
+.loader-inner{
+  text-align:center;
+}
+
+.loader-logo{
+  font-family:"Space Grotesk";
+  font-size:44px;
+  font-weight:800;
+  letter-spacing:-.06em;
+}
+
+.loader-logo span{
+  color:var(--cyan);
+}
+
+.loader-line{
+  width:170px;
+  height:2px;
+  background:rgba(255,255,255,.1);
+  margin:20px auto;
+  overflow:hidden;
+}
+
+.loader-line:after{
+  content:"";
+  display:block;
+  width:60%;
+  height:100%;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  animation:load 1.2s infinite;
+}
+
+@keyframes load{
+  from{transform:translateX(-100%)}
+  to{transform:translateX(280%)}
+}
+
+/* NAV */
+
+.nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:1000;
+  padding:17px 0;
+  background:rgba(5,11,20,.58);
+  backdrop-filter:blur(22px);
+  border-bottom:1px solid rgba(255,255,255,.045);
+}
+
+.nav-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-family:"Space Grotesk";
+  font-weight:800;
+  font-size:22px;
+  letter-spacing:-.05em;
+}
+
+.logo-mark{
+  width:33px;
+  height:33px;
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--cyan),var(--blue));
+  color:#03101a;
+  box-shadow:0 0 25px rgba(53,221,255,.28);
+  font-size:15px;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:25px;
+}
+
+.nav-links a{
+  color:#aab6c5;
+  font-size:13px;
+  font-weight:600;
+  transition:.25s;
+}
+
+.nav-links a:hover{
+  color:#fff;
+}
+
+.nav-cta{
+  padding:10px 16px;
+  border-radius:12px;
+  background:rgba(53,221,255,.09);
+  border:1px solid rgba(53,221,255,.2);
+  color:#c8f6ff!important;
+}
+
+.menu{
+  display:none;
+  background:none;
+  color:#fff;
+  font-size:25px;
+}
+
+/* HERO */
+
+.hero{
+  min-height:100vh;
+  padding-top:170px;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:60px;
+  align-items:center;
+}
+
+.hero h1{
+  font-family:"Space Grotesk";
+  font-size:clamp(52px,7vw,92px);
+  line-height:.94;
+  letter-spacing:-.065em;
+  margin:22px 0;
+}
+
+.hero p{
+  max-width:650px;
+  color:var(--muted);
+  font-size:17px;
+  line-height:1.8;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:32px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  padding:14px 20px;
+  border-radius:14px;
+  cursor:pointer;
+  transition:.25s;
+  font-weight:700;
+  font-size:14px;
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,var(--cyan),#5684ff);
+  color:#041019;
+  box-shadow:0 15px 45px rgba(53,221,255,.18);
+}
+
+.btn-primary:hover{
+  transform:translateY(-3px);
+  box-shadow:0 20px 55px rgba(53,221,255,.28);
+}
+
+.btn-secondary{
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--line);
+  color:#dce7f2;
+}
+
+.btn-secondary:hover{
+  background:rgba(255,255,255,.08);
+  transform:translateY(-3px);
+}
+
+.hero-visual{
+  min-height:510px;
+  position:relative;
+  display:grid;
+  place-items:center;
+}
+
+.orbit{
+  position:absolute;
+  width:420px;
+  height:420px;
+  border:1px solid rgba(53,221,255,.13);
+  border-radius:50%;
+  animation:spin 18s linear infinite;
+}
+
+.orbit:nth-child(2){
+  width:330px;
+  height:330px;
+  animation-direction:reverse;
+  animation-duration:14s;
+  border-color:rgba(165,108,255,.15);
+}
+
+.orbit:nth-child(3){
+  width:500px;
+  height:500px;
+  animation-duration:26s;
+  border-color:rgba(100,124,255,.09);
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+.orbit-dot{
+  position:absolute;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--cyan);
+  box-shadow:0 0 20px var(--cyan);
+  top:10%;
+  left:50%;
+}
+
+.phone{
+  width:min(320px,80vw);
+  min-height:510px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:38px;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.025)),
+    rgba(7,17,29,.9);
+  box-shadow:0 50px 120px rgba(0,0,0,.6),inset 0 1px rgba(255,255,255,.08);
+  padding:18px;
+  position:relative;
+  z-index:3;
+  transform:perspective(1000px) rotateY(-8deg) rotateX(3deg);
+  transition:.5s;
+}
+
+.phone:hover{
+  transform:perspective(1000px) rotateY(0) rotateX(0) translateY(-7px);
+}
+
+.phone-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:#8998aa;
+  font-size:11px;
+  margin-bottom:25px;
+}
+
+.balance-card{
+  padding:22px;
+  border-radius:22px;
+  background:linear-gradient(135deg,rgba(53,221,255,.13),rgba(100,124,255,.12));
+  border:1px solid rgba(53,221,255,.16);
+}
+
+.balance-card small{
+  color:#94a5b8;
+}
+
+.balance{
+  font-family:"Space Grotesk";
+  font-size:34px;
+  font-weight:700;
+  margin:9px 0;
+}
+
+.change{
+  color:var(--green);
+  font-size:12px;
+}
+
+.mini-bars{
+  display:flex;
+  align-items:end;
+  gap:7px;
+  height:120px;
+  margin:26px 4px;
+}
+
+.mini-bars span{
+  flex:1;
+  border-radius:7px 7px 3px 3px;
+  background:linear-gradient(to top,var(--blue),var(--cyan));
+  opacity:.75;
+  animation:bars 2s ease-in-out infinite alternate;
+}
+
+.mini-bars span:nth-child(1){height:35%}
+.mini-bars span:nth-child(2){height:52%}
+.mini-bars span:nth-child(3){height:45%}
+.mini-bars span:nth-child(4){height:75%}
+.mini-bars span:nth-child(5){height:58%}
+.mini-bars span:nth-child(6){height:91%}
+.mini-bars span:nth-child(7){height:70%}
+
+@keyframes bars{
+  to{transform:scaleY(.75)}
+}
+
+.mini-row{
+  display:flex;
+  justify-content:space-between;
+  padding:13px 0;
+  border-top:1px solid rgba(255,255,255,.06);
+  font-size:12px;
+}
+
+.mini-row span:first-child{
+  color:#8c9aad;
+}
+
+.mini-row strong{
+  color:#e9f4ff;
+}
+
+/* MARQUEE */
+
+.marquee{
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  padding:18px 0;
+  overflow:hidden;
+  white-space:nowrap;
+  background:rgba(255,255,255,.012);
+}
+
+.marquee-track{
+  display:inline-flex;
+  gap:45px;
+  animation:marquee 28s linear infinite;
+}
+
+.marquee span{
+  color:#607085;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-weight:700;
+}
+
+.marquee b{
+  color:var(--cyan);
+}
+
+@keyframes marquee{
+  to{transform:translateX(-50%)}
+}
+
+/* SPONSOR */
+
+.sponsor-section{
+  padding:55px 0 75px;
+}
+
+.sponsor{
+  min-height:180px;
+  padding:28px 34px;
+  border-radius:30px;
+  position:relative;
+  overflow:hidden;
+  display:grid;
+  grid-template-columns:1.05fr 1.5fr auto;
+  align-items:center;
+  gap:30px;
+  background:
+    radial-gradient(circle at 90% 20%,rgba(165,108,255,.15),transparent 35%),
+    linear-gradient(120deg,rgba(165,108,255,.075),rgba(53,221,255,.035)),
+    rgba(10,20,34,.7);
+  border:1px solid rgba(165,108,255,.2);
+  box-shadow:0 25px 80px rgba(0,0,0,.22);
+}
+
+.sponsor:after{
+  content:"";
+  position:absolute;
+  width:230px;
+  height:230px;
+  right:-100px;
+  bottom:-130px;
+  border-radius:50%;
+  border:1px solid rgba(165,108,255,.2);
+}
+
+.sponsor-left{
+  display:flex;
+  align-items:center;
+  gap:17px;
+}
+
+.sponsor-mark{
+  width:58px;
+  height:58px;
+  border-radius:18px;
+  display:grid;
+  place-items:center;
+  font-family:"Space Grotesk";
+  font-size:26px;
+  font-weight:800;
+  color:#fff;
+  background:linear-gradient(135deg,#8b5cf6,#5b6cff);
+  box-shadow:0 0 35px rgba(139,92,246,.24);
+}
+
+.sponsor-label{
+  color:#8f9cad;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  margin-bottom:5px;
+}
+
+.sponsor-name{
+  font-family:"Space Grotesk";
+  font-size:25px;
+  font-weight:800;
+  letter-spacing:-.04em;
+}
+
+.sponsor-name span{
+  background:linear-gradient(90deg,#fff,#b9a6ff);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.sponsor-text{
+  color:#9ba9ba;
+  line-height:1.7;
+  font-size:13px;
+}
+
+.sponsor-badge{
+  padding:10px 14px;
+  border-radius:999px;
+  color:#d7caff;
+  border:1px solid rgba(165,108,255,.25);
+  background:rgba(165,108,255,.07);
+  font-size:11px;
+  font-weight:700;
+  white-space:nowrap;
+  transition:.25s;
+}
+
+.sponsor-badge:hover{
+  background:rgba(165,108,255,.15);
+  transform:translateY(-2px);
+}
+
+/* FEATURES */
+
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+
+.feature{
+  min-height:230px;
+  padding:24px;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+  transition:.35s;
+  position:relative;
+  overflow:hidden;
+}
+
+.feature:before{
+  content:"";
+  position:absolute;
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  background:var(--cyan);
+  filter:blur(70px);
+  opacity:.05;
+  right:-30px;
+  bottom:-30px;
+}
+
+.feature:hover{
+  transform:translateY(-8px);
+  border-color:rgba(53,221,255,.25);
+  box-shadow:0 25px 60px rgba(0,0,0,.25);
+}
+
+.feature-icon{
+  width:45px;
+  height:45px;
+  display:grid;
+  place-items:center;
+  border-radius:14px;
+  background:rgba(53,221,255,.08);
+  border:1px solid rgba(53,221,255,.12);
+  font-size:20px;
+  margin-bottom:22px;
+}
+
+.feature h3{
+  font-family:"Space Grotesk";
+  font-size:18px;
+  margin-bottom:10px;
+}
+
+.feature p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+}
+
+/* COMMAND */
+
+.command{
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:20px;
+}
+
+.panel{
+  border:1px solid var(--line);
+  background:var(--panel);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
+.command-left{
+  padding:35px;
+}
+
+.command-left h3{
+  font-family:"Space Grotesk";
+  font-size:30px;
+  margin:18px 0;
+}
+
+.command-left p{
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.stat-list{
+  margin-top:35px;
+}
+
+.stat-line{
+  padding:17px 0;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+}
+
+.stat-line span{
+  color:var(--muted);
+}
+
+.stat-line strong{
+  color:#e9f5ff;
+}
+
+.dashboard{
+  padding:25px;
+  min-height:450px;
+  overflow:hidden;
+}
+
+.dashboard-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+
+.dashboard-title{
+  font-family:"Space Grotesk";
+  font-size:20px;
+}
+
+.live{
+  font-size:10px;
+  color:var(--green);
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.live:before{
+  content:"";
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 10px var(--green);
+}
+
+.chart{
+  height:240px;
+  border-radius:20px;
+  border:1px solid var(--line);
+  background:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:45px 45px;
+  position:relative;
+  overflow:hidden;
+}
+
+.chart svg{
+  width:100%;
+  height:100%;
+}
+
+.dashboard-cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:15px;
+}
+
+.d-card{
+  padding:16px;
+  border-radius:17px;
+  background:rgba(255,255,255,.035);
+  border:1px solid var(--line);
+}
+
+.d-card small{
+  color:#76869a;
+}
+
+.d-card strong{
+  display:block;
+  font-family:"Space Grotesk";
+  font-size:21px;
+  margin-top:8px;
+}
+
+/* GOALS */
+
+.goals{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.goal-card{
+  padding:32px;
+  border-radius:var(--radius);
+  border:1px solid var(--line);
+  background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+}
+
+.goal-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:22px;
+}
+
+.goal-title{
+  font-family:"Space Grotesk";
+  font-size:21px;
+}
+
+.percent{
+  color:var(--cyan);
+  font-weight:800;
+}
+
+.progress{
+  height:9px;
+  background:rgba(255,255,255,.06);
+  border-radius:99px;
+  overflow:hidden;
+}
+
+.progress span{
+  display:block;
+  height:100%;
+  width:72%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+}
+
+.goal-meta{
+  display:flex;
+  justify-content:space-between;
+  color:#75869a;
+  font-size:12px;
+  margin-top:12px;
+}
+
+/* JOURNEY */
+
+.journey{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.journey-step{
+  padding:25px;
+  border:1px solid var(--line);
+  border-radius:23px;
+  background:rgba(255,255,255,.025);
+  position:relative;
+}
+
+.journey-number{
+  font-family:"Space Grotesk";
+  font-size:40px;
+  color:rgba(255,255,255,.09);
+  font-weight:800;
+}
+
+.journey-step h3{
+  margin:15px 0 9px;
+  font-family:"Space Grotesk";
+}
+
+.journey-step p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+}
+
+/* ASK FINOVA */
+
+.ask{
+  max-width:900px;
+  margin:auto;
+}
+
+.chat-box{
+  border:1px solid var(--line);
+  background:rgba(9,19,32,.82);
+  border-radius:30px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+
+.chat-head{
+  padding:20px 24px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.chat-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.ai-dot{
+  width:35px;
+  height:35px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--cyan),var(--blue));
+  color:#031019;
+  font-weight:900;
+}
+
+.chat-title{
+  font-weight:700;
+}
+
+.chat-status{
+  font-size:10px;
+  color:var(--green);
+}
+
+.chat-body{
+  min-height:290px;
+  max-height:390px;
+  overflow-y:auto;
+  padding:25px;
+}
+
+.message{
+  max-width:75%;
+  padding:14px 17px;
+  border-radius:18px;
+  margin-bottom:15px;
+  font-size:13px;
+  line-height:1.65;
+}
+
+.message.ai{
+  background:rgba(255,255,255,.045);
+  border:1px solid var(--line);
+  color:#c5d0dd;
+}
+
+.message.user{
+  margin-left:auto;
+  background:linear-gradient(135deg,rgba(53,221,255,.13),rgba(100,124,255,.13));
+  border:1px solid rgba(53,221,255,.13);
+  color:#d9f8ff;
+}
+
+.chat-input{
+  padding:17px;
+  border-top:1px solid var(--line);
+  display:flex;
+  gap:10px;
+}
+
+.chat-input input{
+  flex:1;
+  background:rgba(255,255,255,.035);
+  border:1px solid var(--line);
+  border-radius:14px;
+  color:#fff;
+  padding:14px;
+  outline:none;
+}
+
+.chat-input input:focus{
+  border-color:rgba(53,221,255,.35);
+}
+
+.chat-input button{
+  padding:0 20px;
+}
+
+.suggestions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  padding:0 20px 20px;
+}
+
+.suggestion{
+  padding:8px 11px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.025);
+  color:#92a1b1;
+  border-radius:999px;
+  font-size:11px;
+  cursor:pointer;
+}
+
+.suggestion:hover{
+  border-color:rgba(53,221,255,.3);
+  color:#c8f8ff;
+}
+
+/* INSIGHTS */
+
+.insights{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:17px;
+}
+
+.insight{
+  padding:27px;
+  border-radius:24px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.025);
+  transition:.3s;
+}
+
+.insight:hover{
+  transform:translateY(-6px);
+  border-color:rgba(165,108,255,.25);
+}
+
+.insight-tag{
+  color:var(--purple);
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  font-size:10px;
+  font-weight:800;
+}
+
+.insight h3{
+  font-family:"Space Grotesk";
+  font-size:20px;
+  margin:14px 0;
+}
+
+.insight p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+}
+
+/* COMPANY */
+
+.company{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+}
+
+.company h2{
+  font-family:"Space Grotesk";
+  font-size:clamp(35px,5vw,58px);
+  letter-spacing:-.05em;
+  line-height:1;
+}
+
+.company-copy p{
+  color:var(--muted);
+  line-height:1.85;
+  margin-top:20px;
+}
+
+.principles{
+  display:grid;
+  gap:12px;
+}
+
+.principle{
+  display:flex;
+  gap:15px;
+  padding:20px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:rgba(255,255,255,.025);
+}
+
+.principle-icon{
+  width:38px;
+  height:38px;
+  flex:none;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  background:rgba(53,221,255,.08);
+}
+
+.principle h4{
+  margin-bottom:5px;
+}
+
+.principle p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+}
+
+/* FAQ */
+
+.faq{
+  max-width:850px;
+  margin:auto;
+}
+
+.faq-item{
+  border-bottom:1px solid var(--line);
+}
+
+.faq-question{
+  width:100%;
+  background:none;
+  color:#eaf3fc;
+  padding:22px 0;
+  text-align:left;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.faq-question span:last-child{
+  color:var(--cyan);
+  font-size:20px;
+}
+
+.faq-answer{
+  max-height:0;
+  overflow:hidden;
+  transition:.35s;
+  color:var(--muted);
+  line-height:1.8;
+  font-size:13px;
+}
+
+.faq-item.open .faq-answer{
+  max-height:180px;
+  padding-bottom:20px;
+}
+
+.faq-item.open .faq-question span:last-child{
+  transform:rotate(45deg);
+}
+
+/* CTA */
+
+.final-cta{
+  text-align:center;
+  padding-bottom:125px;
+}
+
+.cta-box{
+  padding:75px 35px;
+  border-radius:35px;
+  border:1px solid rgba(53,221,255,.14);
+  background:
+    radial-gradient(circle at 50% 0%,rgba(53,221,255,.13),transparent 45%),
+    rgba(255,255,255,.025);
+  overflow:hidden;
+  position:relative;
+}
+
+.cta-box h2{
+  font-family:"Space Grotesk";
+  font-size:clamp(40px,6vw,70px);
+  letter-spacing:-.06em;
+  line-height:.98;
+}
+
+.cta-box p{
+  max-width:600px;
+  margin:20px auto 30px;
+  color:var(--muted);
+  line-height:1.8;
+}
+
+/* FOOTER */
+
+footer{
+  border-top:1px solid var(--line);
+  padding:45px 0;
+}
+
+.footer-grid{
+  display:flex;
+  justify-content:space-between;
+  gap:30px;
+  align-items:flex-start;
+}
+
+.footer-copy{
+  color:#718095;
+  font-size:12px;
+  line-height:1.7;
+  max-width:430px;
+  margin-top:12px;
+}
+
+.footer-links{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  color:#7d8da0;
+  font-size:12px;
+}
+
+.footer-links a:hover{
+  color:#fff;
+}
+
+.footer-bottom{
+  border-top:1px solid var(--line);
+  margin-top:30px;
+  padding-top:20px;
+  color:#5d6c7e;
+  font-size:11px;
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.sponsor-footer{
+  color:#8977b7;
+}
+
+.sponsor-footer a{
+  color:#c0aaff;
+}
+
+.sponsor-footer a:hover{
+  text-decoration:underline;
+}
+
+/* REVEAL */
+
+.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:opacity .8s ease,transform .8s ease;
+}
+
+.reveal.show{
+  opacity:1;
+  transform:none;
+}
+
+/* CURSOR */
+
+.cursor-glow{
+  position:fixed;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(53,221,255,.075),transparent 68%);
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+  z-index:-1;
+}
+
+/* SCROLL */
+
+.scroll-progress{
+  position:fixed;
+  top:0;
+  left:0;
+  height:2px;
+  width:0;
+  z-index:2000;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  .nav-links{
+    position:absolute;
+    top:70px;
+    left:20px;
+    right:20px;
+    padding:18px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    background:rgba(5,11,20,.96);
+    backdrop-filter:blur(20px);
+    flex-direction:column;
+    align-items:stretch;
+    display:none;
+  }
+
+  .nav-links.open{
+    display:flex;
+  }
+
+  .nav-links a{
+    padding:10px;
+  }
+
+  .menu{
+    display:block;
+  }
+
+  .hero{
+    padding-top:140px;
+  }
+
+  .hero-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero-visual{
+    min-height:450px;
+  }
+
+  .features-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .command,
+  .company{
+    grid-template-columns:1fr;
+  }
+
+  .journey{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .sponsor{
+    grid-template-columns:1fr;
+    text-align:left;
+  }
+
+  .sponsor-badge{
+    width:max-content;
+  }
+}
+
+@media(max-width:600px){
+
+  .container{
+    width:min(100% - 28px,var(--max));
+  }
+
+  section{
+    padding:75px 0;
+  }
+
+  .hero h1{
+    font-size:52px;
+  }
+
+  .features-grid,
+  .journey,
+  .goals,
+  .insights{
+    grid-template-columns:1fr;
+  }
+
+  .dashboard-cards{
+    grid-template-columns:1fr;
+  }
+
+  .sponsor{
+    padding:24px;
+  }
+
+  .sponsor-text{
+    font-size:12px;
+  }
+
+  .phone{
+    transform:none;
+  }
+
+  .orbit{
+    width:330px;
+    height:330px;
+  }
+
+  .orbit:nth-child(2){
+    width:270px;
+    height:270px;
+  }
+
+  .orbit:nth-child(3){
+    width:380px;
+    height:380px;
+  }
+
+  .footer-grid,
+  .footer-bottom{
+    flex-direction:column;
+  }
+
+  .chat-input{
+    flex-direction:column;
+  }
+
+  .chat-input button{
+    padding:13px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="loader" id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">FINO<span>VA</span></div>
+    <div class="loader-line"></div>
+    <div style="color:#68778b;font-size:11px;letter-spacing:.14em;text-transform:uppercase;">
+      Building better financial thinking
+    </div>
+  </div>
+</div>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<header class="nav">
+  <div class="container nav-inner">
+
+    <a href="#home" class="logo">
+      <span class="logo-mark">F</span>
+      FINOVA
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#features">Features</a>
+      <a href="#command">Command Center</a>
+      <a href="#ask">Ask FINOVA</a>
+      <a href="#insights">Insights</a>
+      <a href="#about">About</a>
+      <a href="#ask" class="nav-cta">Explore</a>
+    </nav>
+
+    <button class="menu" id="menu">☰</button>
+
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+  <div class="container hero-grid">
+
+    <div class="reveal">
+
+      <span class="eyebrow">The smarter side of money</span>
+
+      <h1>
+        Understand money.<br>
+        <span class="gradient-text">Build your future.</span>
+      </h1>
+
+      <p>
+        FINOVA is designed to make personal finance easier to understand,
+        organise and improve — bringing financial thinking, planning and
+        education into one modern experience.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#features" class="btn btn-primary">
+          Explore FINOVA →
+        </a>
+
+        <a href="#ask" class="btn btn-secondary">
+          Ask FINOVA
+        </a>
+      </div>
+
+    </div>
+
+    <div class="hero-visual reveal">
+
+      <div class="orbit">
+        <span class="orbit-dot"></span>
+      </div>
+
+      <div class="orbit">
+        <span class="orbit-dot"></span>
+      </div>
+
+      <div class="orbit">
+        <span class="orbit-dot"></span>
+      </div>
+
+      <div class="phone">
+
+        <div class="phone-top">
+          <span>FINOVA</span>
+          <span>Financial Overview</span>
+        </div>
+
+        <div class="balance-card">
+          <small>Financial position</small>
+          <div class="balance">₹1,24,850</div>
+          <div class="change">↑ Improving financial health</div>
+        </div>
+
+        <div class="mini-bars">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <div class="mini-row">
+          <span>Income</span>
+          <strong>₹45,000</strong>
+        </div>
+
+        <div class="mini-row">
+          <span>Expenses</span>
+          <strong>₹27,400</strong>
+        </div>
+
+        <div class="mini-row">
+          <span>Savings</span>
+          <strong style="color:#50e6a2">₹17,600</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- MARQUEE -->
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span><b>FINOVA</b> • Financial Awareness</span>
+    <span>Smart Money Thinking</span>
+    <span>Personal Finance</span>
+    <span>Better Decisions</span>
+    <span>Financial Education</span>
+    <span><b>FINOVA</b> • Financial Awareness</span>
+    <span>Smart Money Thinking</span>
+    <span>Personal Finance</span>
+    <span>Better Decisions</span>
+    <span>Financial Education</span>
+  </div>
+</div>
+
+<!-- SPONSOR -->
+
+<section class="sponsor-section">
+  <div class="container">
+
+    <div class="sponsor reveal">
+
+      <div class="sponsor-left">
+
+        <div class="sponsor-mark">D</div>
+
+        <div>
+          <div class="sponsor-label">Sponsored / Supported by</div>
+
+          <a
+            href="https://danqvora.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="sponsor-name"
+            aria-label="Visit DANQVORA"
+          >
+            <span>DANQVORA ↗</span>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="sponsor-text">
+        DANQVORA supports the mission of making financial education,
+        financial awareness and better money thinking more accessible.
+        Its support helps FINOVA continue building educational and
+        practical experiences around personal finance.
+      </div>
+
+      <a
+        href="https://danqvora.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="sponsor-badge"
+      >
+        Finance Education ↗
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- FEATURES -->
+
+<section id="features">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <span class="eyebrow">Built around your money</span>
+      <h2>Everything starts with <span class="gradient-text">clarity.</span></h2>
+      <p>
+        FINOVA brings the most important parts of financial thinking
+        into one simple and modern experience.
+      </p>
+    </div>
+
+    <div class="features-grid">
+
+      <article class="feature reveal">
+        <div class="feature-icon">◈</div>
+        <h3>Smart Tracking</h3>
+        <p>Understand where your money comes from and where it goes.</p>
+      </article>
+
+      <article class="feature reveal">
+        <div class="feature-icon">⌁</div>
+        <h3>Budget Control</h3>
+        <p>Create a clearer relationship between your income and spending.</p>
+      </article>
+
+      <article class="feature reveal">
+        <div class="feature-icon">◎</div>
+        <h3>Savings Goals</h3>
+        <p>Turn large financial goals into smaller measurable milestones.</p>
+      </article>
+
+      <article class="feature reveal">
+        <div class="feature-icon">◫</div>
+        <h3>Multiple Wallets</h3>
+        <p>Keep different financial buckets organised and easy to understand.</p>
+      </article>
+
+      <article class="feature reveal">
+        <div class="feature-icon">↻</div>
+        <h3>Recurring Payments</h3>
+        <p>Stay aware of subscriptions, bills and repeating expenses.</p>
+      </article>
+
+      <article class="feature reveal">
+        <div class="feature-icon">▣</div>
+        <h3>Receipt Scanner</h3>
+        <p>Designed for a future where recording spending takes less effort.</p>
+      </article>
+
+      <article class="feature reveal">
+        <div class="feature-icon">⌁</div>
+        <h3>Analytics</h3>
+        <p>Transform financial activity into patterns you can actually understand.</p>
+      </article>
+
+      <article class="feature reveal">
+        <div class="feature-icon">✦</div>
+        <h3>Financial Insights</h3>
+        <p>Learn the thinking behind better financial decisions.</p>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- COMMAND CENTER -->
+
+<section id="command">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <span class="eyebrow">Financial command center</span>
+      <h2>Your financial picture, <span class="gradient-text">one view.</span></h2>
+      <p>
+        A cleaner way to see income, expenses, savings and financial progress.
+      </p>
+    </div>
+
+    <div class="command">
+
+      <div class="panel command-left reveal">
+
+        <span class="eyebrow">Overview</span>
+
+        <h3>See the bigger picture.</h3>
+
+        <p>
+          Good financial decisions become easier when the numbers are
+          organised. FINOVA focuses on turning scattered financial
+          information into understandable signals.
+        </p>
+
+        <div class="stat-list">
+
+          <div class="stat-line">
+            <span>Income</span>
+            <strong>₹45,000</strong>
+          </div>
+
+          <div class="stat-line">
+            <span>Expenses</span>
+            <strong>₹27,400</strong>
+          </div>
+
+          <div class="stat-line">
+            <span>Available</span>
+            <strong style="color:var(--green)">₹17,600</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="panel dashboard reveal">
+
+        <div class="dashboard-top">
+          <div class="dashboard-title">Money Flow</div>
+          <div class="live">Live interface</div>
+        </div>
+
+        <div class="chart">
+
+          <svg viewBox="0 0 700 240" preserveAspectRatio="none">
+
+            <defs>
+              <linearGradient id="areaGradient" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#35ddff" stop-opacity=".25"/>
+                <stop offset="100%" stop-color="#35ddff" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+
+            <path
+              d="M0 190 C70 180 90 145 145 160 C200 175 220 120 275 140 C330 160 350 80 405 105 C455 130 490 65 535 82 C585 100 620 40 700 55 L700 240 L0 240 Z"
+              fill="url(#areaGradient)"
+            />
+
+            <path
+              d="M0 190 C70 180 90 145 145 160 C200 175 220 120 275 140 C330 160 350 80 405 105 C455 130 490 65 535 82 C585 100 620 40 700 55"
+              fill="none"
+              stroke="#35ddff"
+              stroke-width="3"
+            />
+
+          </svg>
+
+        </div>
+
+        <div class="dashboard-cards">
+
+          <div class="d-card">
+            <small>Income</small>
+            <strong>₹45K</strong>
+          </div>
+
+          <div class="d-card">
+            <small>Spent</small>
+            <strong>₹27.4K</strong>
+          </div>
+
+          <div class="d-card">
+            <small>Saved</small>
+            <strong style="color:var(--green)">₹17.6K</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- GOALS -->
+
+<section>
+  <div class="container">
+
+    <div class="section-head reveal">
+      <span class="eyebrow">Goal builder</span>
+      <h2>Give your money a <span class="gradient-text">destination.</span></h2>
+      <p>
+        Financial goals become easier when they are visible, measurable
+        and connected to a plan.
+      </p>
+    </div>
+
+    <div class="goals">
+
+      <div class="goal-card reveal">
+
+        <div class="goal-top">
+          <div class="goal-title">Emergency Fund</div>
+          <div class="percent">72%</div>
+        </div>
+
+        <div class="progress">
+          <span style="width:72%"></span>
+        </div>
+
+        <div class="goal-meta">
+          <span>₹72,000 saved</span>
+          <span>₹1,00,000 target</span>
+        </div>
+
+      </div>
+
+      <div class="goal-card reveal">
+
+        <div class="goal-top">
+          <div class="goal-title">Future Investment</div>
+          <div class="percent" style="color:var(--purple)">48%</div>
+        </div>
+
+        <div class="progress">
+          <span style="width:48%;background:linear-gradient(90deg,var(--purple),var(--blue))"></span>
+        </div>
+
+        <div class="goal-meta">
+          <span>₹48,000 invested</span>
+          <span>₹1,00,000 target</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- JOURNEY -->
+
+<section>
+  <div class="container">
+
+    <div class="section-head reveal">
+      <span class="eyebrow">Money journey</span>
+      <h2>From confusion to <span class="gradient-text">confidence.</span></h2>
+    </div>
+
+    <div class="journey">
+
+      <div class="journey-step reveal">
+        <div class="journey-number">01</div>
+        <h3>Track</h3>
+        <p>Know what is happening with your money.</p>
+      </div>
+
+      <div class="journey-step reveal">
+        <div class="journey-number">02</div>
+        <h3>Understand</h3>
+        <p>Find patterns behind your financial behaviour.</p>
+      </div>
+
+      <div class="journey-step reveal">
+        <div class="journey-number">03</div>
+        <h3>Plan</h3>
+        <p>Turn financial knowledge into practical goals.</p>
+      </div>
+
+      <div class="journey-step reveal">
+        <div class="journey-number">04</div>
+        <h3>Improve</h3>
+        <p>Build better financial habits over time.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ASK FINOVA -->
+
+<section id="ask">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <span class="eyebrow">Ask FINOVA</span>
+      <h2>Curious about money? <span class="gradient-text">Ask.</span></h2>
+      <p>
+        Explore financial concepts through a simple conversational interface.
+      </p>
+    </div>
+
+    <div class="ask">
+
+      <div class="chat-box reveal">
+
+        <div class="chat-head">
+
+          <div class="chat-brand">
+            <div class="ai-dot">F</div>
+
+            <div>
+              <div class="chat-title">FINOVA Thinking</div>
+              <div class="chat-status">Educational mode</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="chat-body" id="chatBody">
+
+          <div class="message ai">
+            Hi. I'm FINOVA. Ask me about budgeting, investing,
+            inflation, compound interest, SIPs or other financial concepts.
+          </div>
+
+        </div>
+
+        <div class="suggestions">
+
+          <button class="suggestion"
+            onclick="askSuggestion('What is compound interest?')">
+            Compound interest
+          </button>
+
+          <button class="suggestion"
+            onclick="askSuggestion('What is inflation?')">
+            Inflation
+          </button>
+
+          <button class="suggestion"
+            onclick="askSuggestion('What is a SIP?')">
+            SIP
+          </button>
+
+          <button class="suggestion"
+            onclick="askSuggestion('How should I make a budget?')">
+            Budgeting
+          </button>
+
+        </div>
+
+        <div class="chat-input">
+
+          <input
+            id="question"
+            type="text"
+            placeholder="Ask FINOVA a financial question..."
+            autocomplete="off"
+          >
+
+          <button class="btn btn-primary" onclick="askFinova()">
+            Ask →
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- INSIGHTS -->
+
+<section id="insights">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <span class="eyebrow">Financial thinking</span>
+      <h2>Learn the ideas behind <span class="gradient-text">the numbers.</span></h2>
+    </div>
+
+    <div class="insights">
+
+      <article class="insight reveal">
+        <div class="insight-tag">Money basics</div>
+        <h3>Why budgeting matters</h3>
+        <p>
+          A budget is not simply about restricting spending.
+          It is a way to intentionally direct money toward what matters.
+        </p>
+      </article>
+
+      <article class="insight reveal">
+        <div class="insight-tag">Investing</div>
+        <h3>Time is an asset</h3>
+        <p>
+          Compounding demonstrates why starting early can matter
+          just as much as the amount invested.
+        </p>
+      </article>
+
+      <article class="insight reveal">
+        <div class="insight-tag">Economics</div>
+        <h3>Inflation changes purchasing power</h3>
+        <p>
+          Prices rising over time means the same amount of money
+          may buy less in the future.
+        </p>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+  <div class="container">
+
+    <div class="company">
+
+      <div class="company-copy reveal">
+
+        <span class="eyebrow">Why FINOVA exists</span>
+
+        <h2>
+          Financial literacy should feel
+          <span class="gradient-text">less intimidating.</span>
+        </h2>
+
+        <p>
+          Finance is often filled with complicated words, charts and
+          unnecessary complexity. FINOVA aims to make financial thinking
+          more understandable and practical.
+        </p>
+
+        <p>
+          The goal is simple: help people ask better questions,
+          understand their money and make more informed decisions.
+        </p>
+
+      </div>
+
+      <div class="principles">
+
+        <div class="principle reveal">
+          <div class="principle-icon">✦</div>
+          <div>
+            <h4>Clarity first</h4>
+            <p>Complex financial ideas should become easier to understand.</p>
+          </div>
+        </div>
+
+        <div class="principle reveal">
+          <div class="principle-icon">◎</div>
+          <div>
+            <h4>Education over hype</h4>
+            <p>Learn the reasoning behind financial decisions instead of chasing shortcuts.</p>
+          </div>
+        </div>
+
+        <div class="principle reveal">
+          <div class="principle-icon">↗</div>
+          <div>
+            <h4>Long-term thinking</h4>
+            <p>Build habits and knowledge that can remain useful over time.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ -->
+
+<section>
+  <div class="container">
+
+    <div class="section-head reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Questions, <span class="gradient-text">answered.</span></h2>
+    </div>
+
+    <div class="faq">
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span>What is FINOVA?</span>
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          FINOVA is a financial education and money-management concept
+          designed to make personal finance easier to understand and organise.
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span>Is FINOVA financial advice?</span>
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          FINOVA provides educational information and general financial
+          concepts. It is not a substitute for personalised professional
+          financial, tax or investment advice.
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span>Who supports FINOVA?</span>
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          FINOVA is supported by DANQVORA. You can learn more about
+          DANQVORA through its official website.
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span>Where can I learn more about DANQVORA?</span>
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          Visit
+          <a href="https://danqvora.com/" target="_blank" rel="noopener noreferrer"
+             style="color:var(--cyan)">
+            danqvora.com ↗
+          </a>
+          to explore DANQVORA.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+
+<section class="final-cta">
+  <div class="container">
+
+    <div class="cta-box reveal">
+
+      <span class="eyebrow">Start thinking differently</span>
+
+      <h2>
+        Your money deserves
+        <span class="gradient-text">clarity.</span>
+      </h2>
+
+      <p>
+        Learn. Track. Think. Plan. Build.
+        FINOVA is designed around a simple idea:
+        better financial understanding can lead to better decisions.
+      </p>
+
+      <a href="#ask" class="btn btn-primary">
+        Ask FINOVA →
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <div>
+
+        <a href="#home" class="logo">
+          <span class="logo-mark">F</span>
+          FINOVA
+        </a>
+
+        <p class="footer-copy">
+          A modern financial education and money-management experience
+          designed to make financial thinking simpler.
+        </p>
+
+      </div>
+
+      <div class="footer-links">
+        <a href="#features">Features</a>
+        <a href="#command">Command Center</a>
+        <a href="#ask">Ask FINOVA</a>
+        <a href="#insights">Insights</a>
+        <a href="#about">About</a>
+        <a href="https://danqvora.com/" target="_blank" rel="noopener noreferrer">
+          DANQVORA ↗
+        </a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+      <span>© 2026 FINOVA. All rights reserved.</span>
+
+      <span class="sponsor-footer">
+        Supported by
+        <a href="https://danqvora.com/" target="_blank" rel="noopener noreferrer">
+          DANQVORA
+        </a>
+      </span>
+
+    </div>
+
+  </div>
+
+</footer>
+
+<script>
+
+/* LOADER */
+
+window.addEventListener("load",function(){
+  setTimeout(()=>{
+    document.getElementById("loader").classList.add("hide");
+  },700);
+});
+
+
+/* MOBILE NAV */
+
+const menu=document.getElementById("menu");
+const navLinks=document.getElementById("navLinks");
+
+menu.addEventListener("click",()=>{
+  navLinks.classList.toggle("open");
+});
+
+document.querySelectorAll(".nav-links a").forEach(link=>{
+  link.addEventListener("click",()=>{
+    navLinks.classList.remove("open");
+  });
+});
+
+
+/* SCROLL PROGRESS */
+
+window.addEventListener("scroll",()=>{
+
+  const scrollTop=window.scrollY;
+  const height=document.documentElement.scrollHeight-window.innerHeight;
+
+  const progress=height>0 ? (scrollTop/height)*100 : 0;
+
+  document.getElementById("scrollProgress").style.width=progress+"%";
+
+});
+
+
+/* CURSOR GLOW */
+
+const glow=document.getElementById("cursorGlow");
+
+document.addEventListener("mousemove",e=>{
+  glow.style.left=e.clientX+"px";
+  glow.style.top=e.clientY+"px";
+});
+
+
+/* REVEAL */
+
+const observer=new IntersectionObserver(entries=>{
+
+  entries.forEach(entry=>{
+
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+      observer.unobserve(entry.target);
+    }
+
+  });
+
+},{
+  threshold:.12
+});
+
+document.querySelectorAll(".reveal").forEach(el=>{
+  observer.observe(el);
+});
+
+
+/* FAQ */
+
+document.querySelectorAll(".faq-question").forEach(button=>{
+
+  button.addEventListener("click",()=>{
+
+    const item=button.parentElement;
+
+    document.querySelectorAll(".faq-item").forEach(other=>{
+      if(other!==item){
+        other.classList.remove("open");
+      }
+    });
+
+    item.classList.toggle("open");
+
+  });
+
+});
+
+
+/* ASK FINOVA */
+
+const input=document.getElementById("question");
+const chatBody=document.getElementById("chatBody");
+
+input.addEventListener("keydown",e=>{
+  if(e.key==="Enter"){
+    askFinova();
+  }
+});
+
+function askSuggestion(text){
+  input.value=text;
+  askFinova();
+}
+
+function addMessage(text,type){
+
+  const div=document.createElement("div");
+
+  div.className="message "+type;
+
+  div.innerHTML=text;
+
+  chatBody.appendChild(div);
+
+  chatBody.scrollTop=chatBody.scrollHeight;
+}
+
+function askFinova(){
+
+  const question=input.value.trim();
+
+  if(!question) return;
+
+  addMessage(question,"user");
+
+  input.value="";
+
+  const thinking=document.createElement("div");
+
+  thinking.className="message ai";
+
+  thinking.innerHTML=
+    '<span style="color:#35ddff">FINOVA is thinking...</span>';
+
+  chatBody.appendChild(thinking);
+
+  chatBody.scrollTop=chatBody.scrollHeight;
+
+  setTimeout(()=>{
+
+    thinking.remove();
+
+    addMessage(generateAnswer(question),"ai");
+
+  },900);
+
+}
+
+function generateAnswer(question){
+
+  const q=question.toLowerCase();
+
+  if(q.includes("compound") || q.includes("compounding")){
+
+    return `
+      <strong>Compound interest</strong> means earning returns
+      on both your original money and the returns that have already
+      accumulated.
+      <br><br>
+      For example, if ₹10,000 grows by 10% annually, the next year's
+      10% is calculated on the larger balance — not just the original
+      ₹10,000.
+      <br><br>
+      <span style="color:#35ddff">
+      The key idea is: time can make compounding powerful.
+      </span>
+    `;
+
+  }
+
+  if(q.includes("inflation")){
+
+    return `
+      <strong>Inflation</strong> means the general level of prices
+      increases over time.
+      <br><br>
+      If something costs ₹100 today and inflation averages 6%,
+      it may cost roughly ₹106 after one year.
+      <br><br>
+      This matters because inflation reduces the purchasing power
+      of money over time.
+    `;
+
+  }
+
+  if(q.includes("sip")){
+
+    return `
+      A <strong>SIP</strong>, or Systematic Investment Plan,
+      is a method of investing a fixed amount at regular intervals,
+      commonly used with mutual funds.
+      <br><br>
+      The important concept is disciplined investing over time.
+      Returns are not guaranteed, and market investments carry risk.
+    `;
+
+  }
+
+  if(q.includes("budget")){
+
+    return `
+      A simple budget can start with four steps:
+      <br><br>
+      <strong>1.</strong> Calculate reliable income.<br>
+      <strong>2.</strong> Separate essential expenses.<br>
+      <strong>3.</strong> Set aside savings/investments.<br>
+      <strong>4.</strong> Give the remaining money clear spending limits.
+      <br><br>
+      The goal is not to stop spending — it is to make spending intentional.
+    `;
+
+  }
+
+  if(
+    q.includes("stock") ||
+    q.includes("share") ||
+    q.includes("equity")
+  ){
+
+    return `
+      A <strong>stock</strong> represents ownership in a company.
+      When you buy shares, you become a shareholder.
+      <br><br>
+      Stock prices can rise or fall because of company performance,
+      expectations, economic conditions, interest rates and investor
+      sentiment.
+      <br><br>
+      Individual stocks can carry significant risk.
+    `;
+
+  }
+
+  if(
+    q.includes("mutual fund") ||
+    q.includes("mutual funds")
+  ){
+
+    return `
+      A <strong>mutual fund</strong> pools money from many investors
+      and invests it according to a defined strategy.
+      <br><br>
+      This can provide diversification, but mutual funds still carry
+      investment risk and different funds have different objectives.
+    `;
+
+  }
+
+  return `
+    That's an interesting financial question.
+    <br><br>
+    FINOVA can help explain concepts such as budgeting,
+    compound interest, inflation, SIPs, mutual funds, stocks,
+    saving and financial planning.
+    <br><br>
+    Try asking the question in a little more detail and I'll
+    break the concept down simply.
+    <br><br>
+    <span style="color:#7f91a5;font-size:11px">
+      Educational information only — not personalised financial advice.
+    </span>
+  `;
+
+}
+
+
+/* PHONE TILT */
+
+const phone=document.querySelector(".phone");
+
+if(phone && window.matchMedia("(min-width:901px)").matches){
+
+  document.addEventListener("mousemove",e=>{
+
+    const x=(window.innerWidth/2-e.clientX)/100;
+    const y=(window.innerHeight/2-e.clientY)/100;
+
+    phone.style.transform=
+      `perspective(1000px) rotateY(${-x*2-4}deg) rotateX(${y*1.5}deg)`;
+
+  });
+
+}
+
+
+/* SMOOTH ANCHOR */
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+
+  anchor.addEventListener("click",function(e){
+
+    const target=document.querySelector(this.getAttribute("href"));
+
+    if(target){
+
+      e.preventDefault();
+
+      target.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+    }
+
+  });
+
+});
+
+</script>
+
+</body>
+</html>
+```
